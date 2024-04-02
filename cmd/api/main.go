@@ -23,8 +23,10 @@ type application struct {
 	logger *slog.Logger
 }
 
-func (a application) healthcheckHandler(w http.ResponseWriter, r *http.Request) {
-	return
+func (app *application) healthcheckHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "status: available")
+	fmt.Fprintf(w, "environment: %s\n", app.config.env)
+	fmt.Fprintf(w, "version: %s\n", version)
 }
 
 func main() {
@@ -52,6 +54,8 @@ func main() {
 		WriteTimeout: 10 * time.Second,
 		ErrorLog:     slog.NewLogLogger(logger.Handler(), slog.LevelError),
 	}
+
+	logger.Info("starting server on port:", slog.Any("port", cfg.port))
 
 	err := srv.ListenAndServe()
 	logger.Error(err.Error())

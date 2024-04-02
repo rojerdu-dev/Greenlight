@@ -1,7 +1,7 @@
 BINARY_NAME=api
 
 build:
-	@GOARCH=amd64 GOOS=linux go build -o ./bin/${BINARY_NAME}
+	@GOARCH=amd64 GOOS=linux go build -o ./bin/${BINARY_NAME} ./cmd/api
 
 run: build
 	@./bin/${BINARY_NAME}
