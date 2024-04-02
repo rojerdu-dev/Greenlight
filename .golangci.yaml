@@ -32,3 +32,13 @@ linters:
     - gofumpt
     - whitespace
     - errcheck
+
+issues:
+  exclude-rules:
+    - path: movies.go
+      linters:
+        - revive
+    - path: main.go
+      linters:
+        - revive
+
