@@ -41,7 +41,7 @@ issues:
     - path: main.go
       linters:
         - revive
-#    - path: helpers.go
-#      linters:
-#        - errcheck
+    - path: helpers.go
+      linters:
+        - errcheck
 
