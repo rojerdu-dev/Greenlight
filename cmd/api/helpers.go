@@ -4,13 +4,15 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/julienschmidt/httprouter"
 	"io"
 	"net/http"
 	"strconv"
+
+	"github.com/julienschmidt/httprouter"
 )
 
-func (app *application) readJSON(w http.ResponseWriter, r *http.Request, dst any) error {
+// Todo - revive w ResponseWriter parameter in function signature
+func (app *application) readJSON(_ http.ResponseWriter, r *http.Request, dst any) error {
 	err := json.NewDecoder(r.Body).Decode(dst)
 	if err != nil {
 		var syntaxError *json.SyntaxError
