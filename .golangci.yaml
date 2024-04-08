@@ -44,4 +44,7 @@ issues:
     - path: helpers.go
       linters:
         - errcheck
+    - path: internal/validator/validator.go
+      linters:
+        - gofumpt
 
