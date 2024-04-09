@@ -51,4 +51,6 @@ issues:
     - path: internal/data/models.go
       linters:
         - gofumpt
-
+    - path: internal/data/movies.go
+      linters:
+        - gofumpt
