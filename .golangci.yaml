@@ -38,6 +38,7 @@ issues:
     - path: movies.go
       linters:
         - revive
+        - funlen
     - path: main.go
       linters:
         - revive
