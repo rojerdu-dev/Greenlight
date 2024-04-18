@@ -60,6 +60,8 @@ func main() {
 
 	defer db.Close()
 
+	logger.Info("database connection pool established")
+
 	app := &application{
 		config: cfg,
 		logger: logger,
@@ -75,7 +77,7 @@ func main() {
 		ErrorLog:     slog.NewLogLogger(logger.Handler(), slog.LevelError),
 	}
 
-	logger.Info("starting server on port:", slog.Any("port", cfg.port))
+	logger.Info("starting server", slog.Any("port", cfg.port))
 
 	err = srv.ListenAndServe()
 	logger.Error(err.Error())
