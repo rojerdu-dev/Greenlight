@@ -77,7 +77,7 @@ func main() {
 		ErrorLog:     slog.NewLogLogger(logger.Handler(), slog.LevelError),
 	}
 
-	logger.Info("starting server", slog.Any("port", cfg.port))
+	logger.Info("starting server", slog.Any("port", cfg.port), slog.Any("env", cfg.env))
 
 	err = srv.ListenAndServe()
 	logger.Error(err.Error())
