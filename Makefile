@@ -12,7 +12,7 @@ clean:
 
 format:
 	@gofmt -s -w .
-	@goimports .
+	@goimports -w .
 	@echo "\n fumpt and imports -> done!"
 
 test:
