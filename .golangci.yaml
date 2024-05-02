@@ -58,3 +58,6 @@ issues:
     - path: internal/data/movies.go
       linters:
         - gofumpt
+    - path: internal/data/users.go
+      linters:
+        - gofumpt
