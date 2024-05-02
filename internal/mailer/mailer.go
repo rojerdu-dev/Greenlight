@@ -63,5 +63,14 @@ func (m Mailer) Send(recipient, templateFile string, data any) error {
 		return err
 	}
 
-	return nil
+	for i := 1; i <= 3; i++ {
+		err = m.dialer.DialAndSend(msg)
+		if nil == err {
+			return nil
+		}
+
+		time.Sleep(500 * time.Millisecond)
+	}
+
+	return err
 }
