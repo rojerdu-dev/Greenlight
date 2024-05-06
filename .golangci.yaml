@@ -61,3 +61,6 @@ issues:
     - path: internal/data/users.go
       linters:
         - gofumpt
+    - path: cmd/api/users.go
+      linters:
+        - funlen
