@@ -9,40 +9,40 @@ import (
 )
 
 func TestHealthcheckHandler(t *testing.T) {
-	tests := []struct {
+	testCases := []struct {
 		name         string
 		config       config
 		expectedCode int
 	}{
 		{
-			name: "Available",
-			config: config{
-				env: "production",
-			},
-			expectedCode: http.StatusOK,
-		},
-		{
-			name: "Development Environment",
+			name: "development",
 			config: config{
 				env: "development",
 			},
 			expectedCode: http.StatusOK,
 		},
+		{
+			name: "production",
+			config: config{
+				env: "production",
+			},
+			expectedCode: http.StatusOK,
+		},
 	}
 
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			app := &application{
+	for _, tt := range testCases {
+		t.Run("test development healthcheck", func(t *testing.T) {
+			app := application{
 				config: tt.config,
 			}
 
-			req := httptest.NewRequest(http.MethodGet, "/health", nil)
 			rr := httptest.NewRecorder()
+			req := httptest.NewRequest(http.MethodGet, "/v1/healthcheck", nil)
 
 			app.healthcheckHandler(rr, req)
 
 			if rr.Code != tt.expectedCode {
-				t.Errorf("Got %d, expected %d", rr.Code, tt.expectedCode)
+				t.Errorf("Expected code: %d, got code: %d\n", tt.expectedCode, rr.Code)
 			}
 
 			resp := rr.Result()
@@ -52,10 +52,11 @@ func TestHealthcheckHandler(t *testing.T) {
 
 			data, err := io.ReadAll(resp.Body)
 			if err != nil {
-				t.Errorf("failed to read response body: %s", err)
+				t.Errorf("error reading from response body: %s", err)
 			}
 
 			fmt.Println(string(data))
+
 		})
 	}
 }
