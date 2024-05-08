@@ -56,7 +56,6 @@ func TestHealthcheckHandler(t *testing.T) {
 			}
 
 			fmt.Println(string(data))
-
 		})
 	}
 }
