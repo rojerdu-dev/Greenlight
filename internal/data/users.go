@@ -44,7 +44,7 @@ func (p *password) Set(plaintextPassword string) error {
 }
 
 func (p *password) Matches(plaintext string) (bool, error) {
-	err := bcrypt.CompareHashAndPassword([]byte(plaintext), p.hash)
+	err := bcrypt.CompareHashAndPassword(p.hash, []byte(plaintext))
 	if err != nil {
 		switch {
 		case errors.Is(err, bcrypt.ErrMismatchedHashAndPassword):
