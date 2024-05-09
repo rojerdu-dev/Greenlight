@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/rojerdu-dev/Greenlight/internal/validator"
@@ -62,7 +63,13 @@ func (m MovieModel) GetAll(title string, genres []string, filters Filters) ([]*M
 		return nil, Metadata{}, err
 	}
 
-	defer rows.Close()
+	// defer rows.Close()
+	// TODO: change the logger here
+	defer func() {
+		if err := rows.Close(); err != nil {
+			log.Printf("failed to close rows: %v\n", err)
+		}
+	}()
 
 	totalRecords := 0
 	movies := []*Movie{}
