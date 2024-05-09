@@ -14,6 +14,7 @@ import (
 
 func (app *application) serve() error {
 	// Declare HTTP server using same settings from main() function
+	// TODO: add wrapper http.TimeoutHandler(app.routes, 5 * time.Second) to Handler field
 	srv := http.Server{
 		Addr:         fmt.Sprintf(":%d", app.config.port),
 		Handler:      app.routes(),
