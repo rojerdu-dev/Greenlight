@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -55,7 +57,13 @@ func TestHealthcheckHandler(t *testing.T) {
 				t.Errorf("error reading from response body: %s", err)
 			}
 
-			fmt.Println(string(data))
+			var buffer bytes.Buffer
+			err = json.Compact(&buffer, data)
+			if err != nil {
+				t.Errorf("failed to compact bytes into buffer: %s", err)
+			}
+
+			fmt.Println(buffer.String())
 		})
 	}
 }
