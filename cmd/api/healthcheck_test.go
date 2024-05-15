@@ -48,7 +48,12 @@ func TestHealthcheckHandler(t *testing.T) {
 			}
 
 			resp := rr.Result()
-			defer resp.Body.Close()
+			defer func() {
+				err := resp.Body.Close()
+				if err != nil {
+					t.Errorf("failed to close response body: %s", err)
+				}
+			}()
 
 			fmt.Printf("response status code: %d\n", resp.StatusCode)
 
